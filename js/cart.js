@@ -2,6 +2,8 @@ let carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito')) || []
 
 carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito'))
 const carritoIngredientes = document.querySelector('.carrito-ingredientes')
+const carritoAcciones = document.querySelector('.carrito-acciones')
+
 
 function anadirCarrito () {
   carritoIngredientes.innerHTML = ''
@@ -25,7 +27,7 @@ function anadirCarrito () {
       </div>
       <div class="carrito-ingrediente-subtotal">
         <small>Subtotal</small>
-        <p>$${ingrediente.precio}</p>
+        <p>$${ingrediente.precio * ingrediente.cantidad}</p>     
       </div>
     `
     carritoIngredientes.appendChild(div)
@@ -39,9 +41,31 @@ function anadirCarrito () {
     eliminar.addEventListener('click', eliminarIngrediente)
   })
 
-  const carritoAcciones = document.querySelector('.carrito-acciones')
   carritoAcciones.innerHTML = ''
+
+  const vaciarCarritoButton = document.createElement('div')
+  vaciarCarritoButton.classList.add('carrito-acciones-vaciar')
+  vaciarCarritoButton.addEventListener('click', vaciarCarrito)
+  vaciarCarritoButton.innerText = 'VACIAR CARRITO'
+  carritoAcciones.appendChild(vaciarCarritoButton)
+
   calcularTotalCarrito()
+}
+
+const vaciarCarrito = () => {
+  carrito = []
+  anadirCarrito()
+  carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito' == []))
+}
+
+function calcularTotalCarrito() {
+  const total = carrito.reduce((acumulador, ingrediente) => acumulador + ingrediente.precio * ingrediente.cantidad, 0)
+  
+  const totalCarritoElement = document.createElement('div');
+  totalCarritoElement.classList.add('carrito-acciones-total')
+  totalCarritoElement.innerText = `Total: $${total}`
+
+  carritoAcciones.appendChild(totalCarritoElement)
 }
 
 const eliminarIngrediente = () => {
@@ -50,23 +74,11 @@ const eliminarIngrediente = () => {
   carrito = carrito.filter((carritoId) => {
     return carritoId !== findId
   })
-  console.log(findId);
   anadirCarrito()
 }
 
-function calcularTotalCarrito() {
-  const carritoAcciones = document.querySelector('.carrito-acciones')
-  const total = carrito.reduce((acumulador, ingrediente) => acumulador + ingrediente.precio * ingrediente.cantidad, 0)
-  
-  const totalCarritoElement = document.createElement('div');
-  totalCarritoElement.classList.add('carrito-acciones-total')
-  totalCarritoElement.innerHTML = `<p>Total: $${total}</p>`
-
-  carritoAcciones.appendChild(totalCarritoElement)
-}
-
-if(carrito.length) {
-  anadirCarrito()
+if(carrito && carrito.length) {
+ anadirCarrito() 
 } else {
   carritoIngredientes.innerHTML = `<div class="carrito-vacio">Arma tu hamburguesa agregando ingredientes!!</div>` 
 }

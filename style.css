@@ -262,8 +262,9 @@ main {
   align-items: center;
 }
 
-.carrito-acciones-total {
+.carrito-acciones-total, .carrito-acciones-vaciar {
   border: none;
+  color: #FFF4F4;
   background-color: #EE3919;
   padding: 8px;
   border-radius: 10px;
