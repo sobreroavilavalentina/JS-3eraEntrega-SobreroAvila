@@ -44,8 +44,8 @@ function anadirCarrito () {
   carritoAcciones.innerHTML = ''
 
   const vaciarCarritoButton = document.createElement('div')
-  vaciarCarritoButton.classList.add('carrito-acciones-vaciar')
   vaciarCarritoButton.addEventListener('click', vaciarCarrito)
+  vaciarCarritoButton.classList.add('carrito-acciones-vaciar')
   vaciarCarritoButton.innerText = 'VACIAR CARRITO'
   carritoAcciones.appendChild(vaciarCarritoButton)
 
@@ -55,7 +55,7 @@ function anadirCarrito () {
 const vaciarCarrito = () => {
   carrito = []
   anadirCarrito()
-  carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito' == []))
+  localStorage.removeItem('ingredientesEnCarrito')
 }
 
 function calcularTotalCarrito() {
@@ -75,6 +75,7 @@ const eliminarIngrediente = () => {
     return carritoId !== findId
   })
   anadirCarrito()
+  localStorage.setItem('ingredientesEnCarrito', JSON.stringify(carrito))
 }
 
 if(carrito && carrito.length) {
