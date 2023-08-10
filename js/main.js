@@ -16,6 +16,8 @@ const botonesCategorias = document.querySelectorAll('.boton-categoria')
 const contenedorHamburguesas = document.querySelector('.hamburguesas')
 const contenedorPapas = document.querySelector('.papasFritas')
 const tituloPrincipal = document.querySelector('.titulo-ppal')
+const nroCarrito = document.querySelector(`.nro`)
+
 
 botonesCategorias.forEach(boton => {
   boton.addEventListener('click', (e) => {
@@ -125,7 +127,7 @@ botonesAgregar.forEach(boton => {
         duration: 2500,
         close: true,
         gravity: "top", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
+        position: "center", // `left`, `center` or `right`
         stopOnFocus: true, // Prevents dismissing of toast on hover
         style: {
           background: "#e9e693",
@@ -146,9 +148,9 @@ const validarIngredienteEnCarrito = (id) => {
   } else {
     const ingrediente = carrito.find(ingrediente => ingrediente.id == id)
     const cantidad = document.getElementById(`cantidad${ingrediente.id}`)
+
     ingrediente.cantidad++
     cantidad.innerText = `${ingrediente.cantidad}`
   } 
-
   localStorage.setItem('ingredientesEnCarrito', JSON.stringify(carrito))
 }

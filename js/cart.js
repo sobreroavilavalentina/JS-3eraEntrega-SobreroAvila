@@ -2,11 +2,13 @@ let carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito')) || []
 
 carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito'))
 const carritoIngredientes = document.querySelector('.carrito-ingredientes')
+const carritoAccionesBotones = document.querySelector('.carrito-acciones-botones')
 const carritoAcciones = document.querySelector('.carrito-acciones')
 
 const vaciarCarritoMessage = () => {
   carritoIngredientes.innerHTML = `<div class="carrito-vacio">Arma tu hamburguesa agregando ingredientes!!</div>`
-  carritoAcciones.remove('.carrito-acciones')
+  carritoAccionesBotones.remove('carrito-acciones-botones')
+
   localStorage.removeItem('ingredientesEnCarrito') 
 }
 
@@ -41,10 +43,12 @@ function anadirCarrito () {
     const eliminar = document.createElement('span')
     eliminar.innerHTML = `<i class="bi bi-trash3" value="${ingrediente.id}"></i>`
     eliminar.className = 'carrito-ingrediente-eliminar'
+    eliminar.id = `${ingrediente.id}`
 
     div.appendChild(eliminar)
 
-    eliminar.addEventListener('click', eliminarIngrediente)
+    eliminar.addEventListener('click', () => eliminarIngrediente(eliminar.id))
+
   })
 
   carritoAcciones.innerHTML = ''
@@ -77,7 +81,7 @@ const vaciarCarrito = () => {
         duration: 2500,
         close: true,
         gravity: "top", 
-        position: "right", 
+        position: "center", 
         stopOnFocus: true, 
         style: {
           background: "#e9e693",
@@ -101,9 +105,7 @@ function calcularTotalCarrito() {
   if (total == 0) {
     vaciarCarritoMessage()
   }
-
   carritoAcciones.appendChild(totalCarritoElement)
-
 }
 
 const comprar = () => {
@@ -112,7 +114,7 @@ const comprar = () => {
   div.classList.add('carrito-acciones-comprar')
   div.innerText = 'COMPRAR'
 
-  carritoAcciones.appendChild(div)
+  carritoAccionesBotones.appendChild(div)
 
   div.addEventListener('click', () => {
      Swal.fire('Tu compra fue realizada con éxito!')
@@ -120,14 +122,14 @@ const comprar = () => {
   })
 }
 
-const eliminarIngrediente = () => {
+const eliminarIngrediente = (id) => {
 
   Toastify({
     text: "Eliminado",
     duration: 2500,
     close: true,
     gravity: "top", 
-    position: "right", 
+    position: "center", 
     stopOnFocus: true, 
     style: {
       background: "#e9e693",
@@ -137,10 +139,8 @@ const eliminarIngrediente = () => {
     onClick: function(){} 
   }).showToast();
 
-  const findId = carrito.find(element => element.id)
-
   carrito = carrito.filter((carritoId) => {
-    return carritoId !== findId
+    return carritoId.id != id
   })
   anadirCarrito()
   localStorage.setItem('ingredientesEnCarrito', JSON.stringify(carrito))

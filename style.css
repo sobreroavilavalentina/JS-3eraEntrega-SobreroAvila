@@ -254,11 +254,14 @@ main {
   color: #995226;
 }
 
+.carrito-acciones-botones {
+  margin: 20px;
+}
+
 .carrito-acciones {
   display: flex;
   justify-content: space-between;
   gap: 30px;
-  margin: 20px;
   align-items: center;
 }
 
@@ -272,9 +275,9 @@ main {
   font-size: 20px;
 }
 
-.carrito-acciones-comprar {
-  display: flex;
-  flex-direction: column;
+.carrito-acciones-comprar  {
+  width: 100%;
+  margin-top: 10px;
 }
 
 .carrito-acciones-vaciar, .carrito-acciones-total {
@@ -291,6 +294,6 @@ footer {
   padding: 10px;
   background-color: #e9e693;
   color: #995226;
-  bottom: 0;
+  margin: 0px 0px 0px 0px;
   width: 100%;
 }
