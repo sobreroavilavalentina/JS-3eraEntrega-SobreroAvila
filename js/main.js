@@ -1,3 +1,14 @@
+let ingredientes = []
+
+fetch("./js/data.json")
+  .then(response => response.json())
+  .then(data => {
+    ingredientes = data
+    cargarIngredientes(ingredientes.filter(ingrediente => ingrediente.tipo === 'ingrediente'))
+    cargarHamburguesas(ingredientes.filter(ingrediente => ingrediente.tipo === 'hamburguesa'))
+    cargarPapas(ingredientes.filter(ingrediente => ingrediente.tipo == 'papasFritas'))
+  })
+
 let carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito')) || []
 
 const contenedorIngredientes = document.querySelector('.ingredientes')
@@ -97,9 +108,6 @@ function cargarPapas(papasSeleccionados) {
   localStorage.setItem('ingredientesEnCarrito', JSON.stringify(carrito));
 }
 
-cargarIngredientes(ingredientes.filter(ingrediente => ingrediente.tipo === 'ingrediente'))
-cargarHamburguesas(ingredientes.filter(ingrediente => ingrediente.tipo === 'hamburguesa'))
-cargarPapas(ingredientes.filter(ingrediente => ingrediente.tipo == 'papasFritas'))
 
 //filter aside
 
@@ -109,11 +117,26 @@ const botonesAgregar = document.querySelectorAll('.main-division')
 botonesAgregar.forEach(boton => {
   boton.addEventListener('click', (e) => {
     if (e.target.classList.contains('boton-agregar') || e.target.classList.contains('boton-seleccion')) {
+      
       validarIngredienteEnCarrito(e.target.id)
+
+      Toastify({
+        text: "Ingrediente añadido",
+        duration: 2500,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "#e9e693",
+          color: "#995226",
+          borderRadius: "2rem"
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
     }
   })
 })
-
 
 const validarIngredienteEnCarrito = (id) => {
   const isRepeated = carrito.some(ingrediente => ingrediente.id == id)
@@ -129,5 +152,3 @@ const validarIngredienteEnCarrito = (id) => {
 
   localStorage.setItem('ingredientesEnCarrito', JSON.stringify(carrito))
 }
-
-

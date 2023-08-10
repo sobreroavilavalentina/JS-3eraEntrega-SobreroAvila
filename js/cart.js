@@ -4,8 +4,14 @@ carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito'))
 const carritoIngredientes = document.querySelector('.carrito-ingredientes')
 const carritoAcciones = document.querySelector('.carrito-acciones')
 
+const vaciarCarritoMessage = () => {
+  carritoIngredientes.innerHTML = `<div class="carrito-vacio">Arma tu hamburguesa agregando ingredientes!!</div>`
+  carritoAcciones.remove('.carrito-acciones')
+  localStorage.removeItem('ingredientesEnCarrito') 
+}
 
 function anadirCarrito () {
+
   carritoIngredientes.innerHTML = ''
 
   carrito.forEach(ingrediente => {
@@ -53,9 +59,36 @@ function anadirCarrito () {
 }
 
 const vaciarCarrito = () => {
-  carrito = []
-  anadirCarrito()
-  localStorage.removeItem('ingredientesEnCarrito')
+
+  Swal.fire({
+    title: '¿Deseas vaciar el carrito?',
+    showCancelButton: true,
+    confirmButtonText: 'CONFIRMAR',
+    cancelButtonText: 'CANCELAR'
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      Swal.fire('Se vació el carrito')
+      carrito = []
+      anadirCarrito()
+      vaciarCarritoMessage()
+      Toastify({
+        text: "Ingredientes eliminados",
+        duration: 2500,
+        close: true,
+        gravity: "top", 
+        position: "right", 
+        stopOnFocus: true, 
+        style: {
+          background: "#e9e693",
+          color: "#995226",
+          borderRadius: "2rem"
+        },
+        onClick: function(){} 
+      }).showToast()
+    }
+  })
+
 }
 
 function calcularTotalCarrito() {
@@ -65,10 +98,45 @@ function calcularTotalCarrito() {
   totalCarritoElement.classList.add('carrito-acciones-total')
   totalCarritoElement.innerText = `Total: $${total}`
 
+  if (total == 0) {
+    vaciarCarritoMessage()
+  }
+
   carritoAcciones.appendChild(totalCarritoElement)
+
+}
+
+const comprar = () => {
+
+  const div = document.createElement('button')
+  div.classList.add('carrito-acciones-comprar')
+  div.innerText = 'COMPRAR'
+
+  carritoAcciones.appendChild(div)
+
+  div.addEventListener('click', () => {
+     Swal.fire('Tu compra fue realizada con éxito!')
+     vaciarCarritoMessage()
+  })
 }
 
 const eliminarIngrediente = () => {
+
+  Toastify({
+    text: "Eliminado",
+    duration: 2500,
+    close: true,
+    gravity: "top", 
+    position: "right", 
+    stopOnFocus: true, 
+    style: {
+      background: "#e9e693",
+      color: "#995226",
+      borderRadius: "2rem"
+    },
+    onClick: function(){} 
+  }).showToast();
+
   const findId = carrito.find(element => element.id)
 
   carrito = carrito.filter((carritoId) => {
@@ -81,10 +149,7 @@ const eliminarIngrediente = () => {
 if(carrito && carrito.length) {
  anadirCarrito() 
 } else {
-  carritoIngredientes.innerHTML = `<div class="carrito-vacio">Arma tu hamburguesa agregando ingredientes!!</div>` 
+  vaciarCarritoMessage()
 }
 
-
-
-
-
+comprar()
