@@ -1,7 +1,7 @@
+let carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito')) || []
+
 carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito'))
 const carritoIngredientes = document.querySelector('.carrito-ingredientes')
-
-
 
 function anadirCarrito () {
   carritoIngredientes.innerHTML = ''
@@ -27,22 +27,49 @@ function anadirCarrito () {
         <small>Subtotal</small>
         <p>$${ingrediente.precio}</p>
       </div>
-      <button class="carrito-ingrediente-eliminar" value="${ingrediente.id}"><i class="bi bi-trash3"></i></button>
     `
     carritoIngredientes.appendChild(div)
+
+    const eliminar = document.createElement('span')
+    eliminar.innerHTML = `<i class="bi bi-trash3" value="${ingrediente.id}"></i>`
+    eliminar.className = 'carrito-ingrediente-eliminar'
+
+    div.appendChild(eliminar)
+
+    eliminar.addEventListener('click', eliminarIngrediente)
   })
 
+  const carritoAcciones = document.querySelector('.carrito-acciones')
+  carritoAcciones.innerHTML = ''
+  calcularTotalCarrito()
 }
 
-anadirCarrito()
+const eliminarIngrediente = () => {
+  const findId = carrito.find(element => element.id)
+
+  carrito = carrito.filter((carritoId) => {
+    return carritoId !== findId
+  })
+  console.log(findId);
+  anadirCarrito()
+}
 
 function calcularTotalCarrito() {
+  const carritoAcciones = document.querySelector('.carrito-acciones')
   const total = carrito.reduce((acumulador, ingrediente) => acumulador + ingrediente.precio * ingrediente.cantidad, 0)
-  const totalCarritoElement = document.querySelector('.carrito-acciones-total');
+  
+  const totalCarritoElement = document.createElement('div');
+  totalCarritoElement.classList.add('carrito-acciones-total')
   totalCarritoElement.innerHTML = `<p>Total: $${total}</p>`
-}
-calcularTotalCarrito();
 
+  carritoAcciones.appendChild(totalCarritoElement)
+}
+
+if(carrito.length) {
+  anadirCarrito()
+} else {
+  carritoIngredientes.innerHTML = `<div class="carrito-vacio">Arma tu hamburguesa agregando ingredientes!!</div>` 
+}
 
 
 

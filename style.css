@@ -93,11 +93,6 @@ main {
   color: #EE3919;
 }
 
-footer {
-  font-size: 20px;
-  text-align: center;
-  color: #995226;
-}
 
 .titulo-ppal {
   font-weight: bolder;
@@ -213,13 +208,26 @@ footer {
 
 /* carrito */
 
+.boton-carrito {
+  align-items: center;
+  justify-items: center;
+}
+
+.logo-hamburguesa  {
+  width: 30px;
+  margin: 5px;
+}
 
 .contenedor-carrito {
   width: 80%;
 }
 
-.carrito-vacio, .carrito-lleno {
+.carrito-vacio {
   font-style: italic;
+  font-size: 25px;
+  padding: 30px;
+  color: #995226;
+  text-align: center;
 }
 
 .carrito-ingrediente {
@@ -254,15 +262,6 @@ footer {
   align-items: center;
 }
 
-/* .carrito-acciones button {
-  border: none;
-  color: #FFF4F4;
-  background-color: #EE3919;
-  padding: 8px;
-  border-radius: 10px;
-  font-size: 12px;
-} */
-
 .carrito-acciones-total {
   border: none;
   background-color: #EE3919;
@@ -285,4 +284,7 @@ footer {
   font-size: 15px;
   padding: 10px;
   background-color: #e9e693;
+  color: #995226;
+  bottom: 0;
+  width: 100%;
 }
