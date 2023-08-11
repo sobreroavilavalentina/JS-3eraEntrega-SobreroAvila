@@ -5,6 +5,7 @@ const carritoIngredientes = document.querySelector('.carrito-ingredientes')
 const carritoAccionesBotones = document.querySelector('.carrito-acciones-botones')
 const carritoAcciones = document.querySelector('.carrito-acciones')
 
+
 const vaciarCarritoMessage = () => {
   carritoIngredientes.innerHTML = `<div class="carrito-vacio">Arma tu hamburguesa agregando ingredientes!!</div>`
   carritoAccionesBotones.remove('carrito-acciones-botones')
@@ -153,3 +154,4 @@ if(carrito && carrito.length) {
 }
 
 comprar()
+

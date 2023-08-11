@@ -16,6 +16,16 @@
   background-color: #FFF4F4;
 }
 
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
 header {
   padding: 15px;
   position: sticky;
@@ -41,6 +51,12 @@ a {
 
 button {
   cursor: pointer;
+  border: none;
+}
+
+button:hover {
+  background-color: #bc2c13;
+
 }
 
 aside {
@@ -60,6 +76,13 @@ aside h2 {
   text-align: left;
   margin: 8px;
   color: #EE3919;
+}
+
+.boton-categoria:hover {
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .boton-categoria.active {
@@ -208,6 +231,12 @@ main {
 
 /* carrito */
 
+.bi-arrow-bar-left {
+  background-color: transparent;
+  color: #FFF4F4;
+  font-size: 18px;
+}
+
 .boton-carrito {
   align-items: center;
   justify-items: center;
@@ -252,6 +281,11 @@ main {
 .carrito-ingrediente-eliminar {
   border: none;
   color: #995226;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+.carrito-ingrediente-eliminar:hover {
+  color: #decabe;
 }
 
 .carrito-acciones-botones {
@@ -275,6 +309,10 @@ main {
   font-size: 20px;
 }
 
+.carrito-acciones-vaciar {
+  cursor: pointer;
+}
+
 .carrito-acciones-comprar  {
   width: 100%;
   margin-top: 10px;
@@ -294,6 +332,10 @@ footer {
   padding: 10px;
   background-color: #e9e693;
   color: #995226;
-  margin: 0px 0px 0px 0px;
   width: 100%;
+  margin-top: auto;
+}
+
+.disabled {
+  display: none;
 }

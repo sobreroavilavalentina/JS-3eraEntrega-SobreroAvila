@@ -1,3 +1,5 @@
+let carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito')) || []
+
 let ingredientes = []
 
 fetch("./js/data.json")
@@ -9,14 +11,17 @@ fetch("./js/data.json")
     cargarPapas(ingredientes.filter(ingrediente => ingrediente.tipo == 'papasFritas'))
   })
 
-let carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito')) || []
 
 const contenedorIngredientes = document.querySelector('.ingredientes')
 const botonesCategorias = document.querySelectorAll('.boton-categoria')
 const contenedorHamburguesas = document.querySelector('.hamburguesas')
 const contenedorPapas = document.querySelector('.papasFritas')
 const tituloPrincipal = document.querySelector('.titulo-ppal')
-const nroCarrito = document.querySelector(`.nro`)
+const nroCarrito = document.getElementById('cantidad-carrito')
+
+const contadorCarrito = () => {
+  nroCarrito.innerText = (carrito.length)
+}
 
 
 botonesCategorias.forEach(boton => {
@@ -57,7 +62,7 @@ function cargarIngredientes(ingredientesSeleccionados) {
         <p class="ingrediente-precio">$ ${ingrediente.precio}</p>
         <div class="ingrediente-cantidad">
           <button class="boton-agregar" id="${ingrediente.id}">AÑADIR</button>
-          <p class="nro-cantidad" id="cantidad${ingrediente.id}">${ingrediente.cantidad}</p>
+          <p class="nro-cantidad disabled" id="cantidad${ingrediente.id}">${ingrediente.cantidad}</p>
           </div>
       </div>
     </div>
@@ -80,12 +85,12 @@ function cargarHamburguesas(hamburguesasSeleccionados) {
     const buttonSeleccionar = document.createElement('div')
     buttonSeleccionar.classList.add('buttonSeleccionar')
     buttonSeleccionar.innerHTML = `<button class="boton-seleccion" id="${ingrediente.id}">ELEGIR</button>
-    <p class="nro-cantidad" id="cantidad${ingrediente.id}">${ingrediente.cantidad}</p>
+    <p class="nro-cantidad disabled" id="cantidad${ingrediente.id}">${ingrediente.cantidad}</p>
     `
 
     div.append(buttonSeleccionar)
   })
-  localStorage.setItem('ingredientesEnCarrito', JSON.stringify(carrito));
+  localStorage.setItem('ingredientesEnCarrito', JSON.stringify(carrito))
 
 }
 
@@ -103,7 +108,7 @@ function cargarPapas(papasSeleccionados) {
     const buttonSeleccionar = document.createElement('div')
     buttonSeleccionar.classList.add('buttonSeleccionar')
     buttonSeleccionar.innerHTML = `<button class="boton-seleccion" id="${papa.id}">ELEGIR</button>
-    <p class="nro-cantidad" id="cantidad${papa.id}">${papa.cantidad}</p>
+    <p class="nro-cantidad disabled" id="cantidad${papa.id}">${papa.cantidad}</p>
     `
     div.append(buttonSeleccionar)
   })
@@ -119,6 +124,7 @@ const botonesAgregar = document.querySelectorAll('.main-division')
 botonesAgregar.forEach(boton => {
   boton.addEventListener('click', (e) => {
     if (e.target.classList.contains('boton-agregar') || e.target.classList.contains('boton-seleccion')) {
+      
       
       validarIngredienteEnCarrito(e.target.id)
 
@@ -142,15 +148,23 @@ botonesAgregar.forEach(boton => {
 
 const validarIngredienteEnCarrito = (id) => {
   const isRepeated = carrito.some(ingrediente => ingrediente.id == id)
-  if (!isRepeated) {
-    const ingrediente = ingredientes.find(ingrediente => ingrediente.id == id)
-    carrito.push(ingrediente)
-  } else {
-    const ingrediente = carrito.find(ingrediente => ingrediente.id == id)
-    const cantidad = document.getElementById(`cantidad${ingrediente.id}`)
+  const ingrediente = ingredientes.find(item => item.id == id)
 
+  if (!isRepeated) {
+    ingrediente.cantidad = 1
+    carrito.push(ingrediente)
+    const cantidadElement = document.getElementById(`cantidad${ingrediente.id}`)
+    cantidadElement.classList.add('disabled')
+  } else {
+    const ingrediente = carrito.find(item => item.id == id)
     ingrediente.cantidad++
-    cantidad.innerText = `${ingrediente.cantidad}`
-  } 
+  }
+  const cantidad = document.getElementById(`cantidad${ingrediente.id}`)
+  cantidad.innerText = `${ingrediente.cantidad}`
+  cantidad.classList.remove('disabled')
+  contadorCarrito()
+
   localStorage.setItem('ingredientesEnCarrito', JSON.stringify(carrito))
 }
+
+
