@@ -109,19 +109,109 @@ function calcularTotalCarrito() {
   carritoAcciones.appendChild(totalCarritoElement)
 }
 
+const div = document.createElement('button')
+div.classList.add('carrito-acciones-comprar')
+div.innerText = 'COMPRAR'
+carritoAccionesBotones.appendChild(div)
+
+
 const comprar = () => {
-
-  const div = document.createElement('button')
-  div.classList.add('carrito-acciones-comprar')
-  div.innerText = 'COMPRAR'
-
-  carritoAccionesBotones.appendChild(div)
-
   div.addEventListener('click', () => {
-     Swal.fire('Tu compra fue realizada con éxito!')
-     vaciarCarritoMessage()
+
+    const ifPanSelected = carrito.some(ingrediente => ingrediente.subtipo == 'pan')
+    const ifVerdSelected = carrito.some(ingrediente => ingrediente.subtipo == 'verduras')
+    const ifQuesoSelected = carrito.some(ingrediente => ingrediente.subtipo == 'queso')
+    const ifAderSelected = carrito.some(ingrediente => ingrediente.subtipo == 'aderezos')
+    const ifHamburSelected = carrito.some(ingrediente => ingrediente.subtipo == 'hamburguesas')
+    const ifPapasSelected = carrito.some(ingrediente => ingrediente.subtipo == 'aderezosPapas')
+    
+
+    if (!ifPanSelected) {
+      Swal.fire({
+        icon: 'error',
+        title: '¿Comerás tu hamburguesa sin pan?',
+        text: 'Debes añadir un(1) tipo de pan para realizar la compra',
+        footer: '<a href="./index.html">Añade un tipo de pan</a>'
+      })
+    } else if (!ifVerdSelected) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'Debes añadir verduras a tu hamburguesa',
+        footer: '<a href="./index.html">Añade verduras</a>'
+      })
+    } else if (!ifQuesoSelected) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'Debes añadir un tipo de queso a tu hamburguesa',
+        footer: '<a href="./index.html">Añade queso</a>'
+      })
+    } else if (!ifAderSelected) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'Debes añadir un tipo de aderezo a tu hamburguesa',
+        footer: '<a href="./index.html">Añade verduras</a>'
+      })
+    } else if (!ifHamburSelected) {
+      Swal.fire({
+        icon: 'error',
+        title: '',
+        text: 'Debes añadir un tipo de hamburguesa',
+        footer: '<a href="./index.html">Añade verduras</a>'
+      })
+    } else {
+
+      if (!ifPapasSelected) {
+        Swal.fire({
+          title: 'No has añadido papas, ¿deseas confirmar tu compra de todos modos?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirmar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: '¿Confirmar compra?',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirmar'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'Compra realizada con éxito!',
+                  vaciarCarritoMessage()
+                )
+              }
+            })
+          }
+        })  
+      } else {
+        Swal.fire({
+          title: '¿Confirmar compra?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirmar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire(
+              'Compra realizada con éxito!',
+              vaciarCarritoMessage()
+            )
+          }
+        })
+      }  
+    }
   })
 }
+
+comprar()
 
 const eliminarIngrediente = (id) => {
 
@@ -152,6 +242,3 @@ if(carrito && carrito.length) {
 } else {
   vaciarCarritoMessage()
 }
-
-comprar()
-

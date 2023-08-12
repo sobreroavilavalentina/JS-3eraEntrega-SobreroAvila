@@ -168,3 +168,5 @@ const validarIngredienteEnCarrito = (id) => {
 }
 
 
+// hacer que no se pueda comprar sin una minimo de 1 producto de pan
+// ver de mantener las cantidades en el localStorage cuando vuelvo del cart.js
