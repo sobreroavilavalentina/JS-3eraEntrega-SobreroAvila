@@ -154,14 +154,14 @@ const comprar = () => {
         icon: 'error',
         title: '',
         text: 'Debes añadir un tipo de aderezo a tu hamburguesa',
-        footer: '<a href="./index.html">Añade verduras</a>'
+        footer: '<a href="./index.html">Añade aderezos</a>'
       })
     } else if (!ifHamburSelected) {
       Swal.fire({
         icon: 'error',
         title: '',
         text: 'Debes añadir un tipo de hamburguesa',
-        footer: '<a href="./index.html">Añade verduras</a>'
+        footer: '<a href="./index.html">Añade un tipo de hamburguesa</a>'
       })
     } else {
 
