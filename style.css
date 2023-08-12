@@ -124,6 +124,23 @@ main {
   padding: 10px;
 }
 
+.instrucciones {
+  border: 2px solid #EE3919;
+  border-radius: 10px;
+  padding: 10px 30px;
+  width: fit-content;
+  margin: auto;
+}
+
+.instrucciones h3 {
+  color: #c02509;
+}
+
+.instrucciones p {
+  color: #995226;
+  font-weight: bold;
+}
+
 .contenedor {
   display: grid;
   grid-template-columns: 1fr 5fr;

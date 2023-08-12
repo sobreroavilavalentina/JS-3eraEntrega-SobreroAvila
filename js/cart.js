@@ -4,11 +4,13 @@ carrito = JSON.parse(localStorage.getItem('ingredientesEnCarrito'))
 const carritoIngredientes = document.querySelector('.carrito-ingredientes')
 const carritoAccionesBotones = document.querySelector('.carrito-acciones-botones')
 const carritoAcciones = document.querySelector('.carrito-acciones')
+const carritoInstrucciones = document.querySelector('.instrucciones')
 
 
 const vaciarCarritoMessage = () => {
   carritoIngredientes.innerHTML = `<div class="carrito-vacio">Arma tu hamburguesa agregando ingredientes!!</div>`
   carritoAccionesBotones.remove('carrito-acciones-botones')
+  carritoInstrucciones.remove('instrucciones')  
 
   localStorage.removeItem('ingredientesEnCarrito') 
 }

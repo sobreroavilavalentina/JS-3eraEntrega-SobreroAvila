@@ -116,9 +116,6 @@ function cargarPapas(papasSeleccionados) {
 }
 
 
-//filter aside
-
-
 const botonesAgregar = document.querySelectorAll('.main-division')
 
 botonesAgregar.forEach(boton => {
@@ -146,6 +143,8 @@ botonesAgregar.forEach(boton => {
   })
 })
 
+
+
 const validarIngredienteEnCarrito = (id) => {
   const isRepeated = carrito.some(ingrediente => ingrediente.id == id)
   const ingrediente = ingredientes.find(item => item.id == id)
@@ -166,6 +165,8 @@ const validarIngredienteEnCarrito = (id) => {
 
   localStorage.setItem('ingredientesEnCarrito', JSON.stringify(carrito))
 }
+
+
 
 
 // hacer que no se pueda comprar sin una minimo de 1 producto de pan
