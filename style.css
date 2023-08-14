@@ -28,15 +28,22 @@ body {
 
 header {
   padding: 15px;
-  color: #995226;
-  background-color: #FFF4F4;
+  color: #ff4d00;
+  font-size: 20px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  margin-bottom: 20px;
+  border-bottom: double 5px #ff0000;
+}
+
+header img {
+  width: auto;
+  height: 95px;
 }
 
 .contenedor-header {
   padding-left: 40px;
+
 }
 
 li {
@@ -204,6 +211,10 @@ main {
   align-items: center;
 }
 
+.hamburguesasDiv li {
+  width: 200px;
+}
+
 .hamburguesas h2, .papasFritas h2 {
   color: #995226;
   margin: 15px;
@@ -229,12 +240,9 @@ main {
 .buttonSeleccionar {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-left: 10px;
-  justify-content: right;
-
 }
+
+
 
 .ingrediente-cantidad {
   display: flex;
