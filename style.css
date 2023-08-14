@@ -32,13 +32,9 @@ header {
   font-size: 20px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin-bottom: 20px;
   border-bottom: double 5px #ff0000;
-}
-
-header img {
-  width: auto;
-  height: 95px;
 }
 
 .contenedor-header {
