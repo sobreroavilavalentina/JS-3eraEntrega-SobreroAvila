@@ -28,8 +28,6 @@ body {
 
 header {
   padding: 15px;
-  position: sticky;
-  top: 0;
   color: #995226;
   background-color: #FFF4F4;
   display: flex;
@@ -355,4 +353,8 @@ footer {
 
 .disabled {
   display: none;
+}
+
+.swal2-x-mark, .swal2-footer, .swal2-html-container {
+  background-color: transparent;
 }
